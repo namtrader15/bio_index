@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Bio | Javis Trading</title>
+  <meta name="description" content="Mình áp dụng các chiến lược AI vào trading." />
+
+  <!-- Open Graph (hiển thị đẹp khi share link) -->
+  <meta property="og:title" content="Bio | Javis Trading" />
+  <meta property="og:description" content="Mình áp dụng các chiến lược AI vào trading." />
+  <meta property="og:type" content="website" />
+
+  <style>
+    :root{
+      --bg:#070b12;
+      --card:rgba(255,255,255,.06);
+      --stroke:rgba(255,255,255,.12);
+      --text:#eaf0ff;
+      --muted:rgba(234,240,255,.75);
+      --glow:rgba(80,160,255,.22);
+      --shadow: 0 12px 35px rgba(0,0,0,.45);
+      --radius: 18px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: var(--bg);
+      color: var(--text);
+      min-height:100vh;
+    }
+
+    /* Cover giống kiểu beacons */
+    .cover{
+      position:relative;
+      height: 340px;
+      background:
+        radial-gradient(900px 380px at 70% 10%, rgba(70,170,255,.35), transparent 55%),
+        radial-gradient(700px 300px at 20% 30%, rgba(140,90,255,.25), transparent 60%),
+        linear-gradient(180deg, rgba(0,0,0,.0) 0%, rgba(7,11,18,.85) 75%, rgba(7,11,18,1) 100%),
+        url("cover.jpg");
+      background-size: cover;
+      background-position: center;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      overflow:hidden;
+    }
+    /* lớp “chart lines” nhẹ nhẹ cho đúng vibe */
+    .cover::after{
+      content:"";
+      position:absolute; inset:0;
+      opacity:.20;
+      background-image:
+        linear-gradient(transparent 0 90%, rgba(255,255,255,.10) 90% 92%, transparent 92%),
+        linear-gradient(90deg, transparent 0 92%, rgba(255,255,255,.08) 92% 94%, transparent 94%),
+        radial-gradient(circle at 15% 60%, rgba(80,160,255,.35), transparent 40%),
+        radial-gradient(circle at 70% 35%, rgba(140,90,255,.28), transparent 45%);
+      background-size: 120px 80px, 90px 120px, auto, auto;
+      mix-blend-mode: screen;
+      pointer-events:none;
+    }
+
+    .wrap{
+      max-width: 620px;
+      margin: 0 auto;
+      padding: 0 16px 28px;
+    }
+
+    .card{
+      margin-top: -80px;
+      background: var(--card);
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      overflow:hidden;
+    }
+
+    .profile{
+      padding: 18px 18px 10px;
+      text-align:center;
+    }
+    .avatar{
+      width: 104px; height:104px;
+      border-radius: 999px;
+      border: 3px solid rgba(255,255,255,.20);
+      box-shadow: 0 10px 25px rgba(0,0,0,.45), 0 0 0 6px rgba(80,160,255,.12);
+      object-fit: cover;
+      background: rgba(255,255,255,.06);
+    }
+    .name{
+      margin: 12px 0 4px;
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: .2px;
+      text-shadow: 0 0 18px var(--glow);
+    }
+    .bio{
+      margin: 0 auto;
+      max-width: 520px;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 15px;
+    }
+
+    .social{
+      display:flex;
+      gap: 10px;
+      justify-content:center;
+      padding: 14px 0 8px;
+    }
+    .iconbtn{
+      width: 44px; height: 44px;
+      display:grid; place-items:center;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      text-decoration:none;
+      color: var(--text);
+      transition: transform .12s ease, background .12s ease;
+    }
+    .iconbtn:hover{transform: translateY(-1px); background: rgba(255,255,255,.09);}
+    .iconbtn svg{opacity:.9}
+
+    .links{
+      padding: 8px 14px 16px;
+      display:grid;
+      gap: 12px;
+    }
+    .btn{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      padding: 14px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.07);
+      color: var(--text);
+      text-decoration:none;
+      font-weight: 750;
+      letter-spacing: .2px;
+      box-shadow: 0 10px 25px rgba(0,0,0,.25);
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.10);
+      border-color: rgba(255,255,255,.20);
+    }
+    .btn .left{
+      width: 38px; height:38px;
+      border-radius: 14px;
+      display:grid; place-items:center;
+      background: rgba(80,160,255,.12);
+      border: 1px solid rgba(80,160,255,.25);
+    }
+    .btn .label{flex:1; text-align:left;}
+    .btn .right{
+      opacity:.85;
+      display:grid; place-items:center;
+    }
+
+    /* nút placeholder (chưa có link) */
+    .btn.disabled{
+      opacity: .65;
+      cursor: not-allowed;
+    }
+    .btn.disabled:hover{transform:none; background: rgba(255,255,255,.07);}
+
+    .foot{
+      padding: 0 18px 18px;
+      text-align:center;
+      color: rgba(234,240,255,.55);
+      font-size: 12px;
+    }
+
+    @media (max-width:420px){
+      .cover{height: 320px;}
+      .name{font-size: 26px;}
+    }
+  </style>
+</head>
+
+<body>
+  <header class="cover" aria-hidden="true"></header>
+
+  <main class="wrap">
+    <section class="card">
+      <div class="profile">
+        <!-- thay avatar.jpg bằng ảnh của bạn -->
+        <img class="avatar" src="avatar.jpg" alt="Avatar" />
+
+        <div class="name">@JavisTrading</div>
+        <p class="bio">Mình áp dụng các chiến lược AI vào trading</p>
+
+        <!-- Social icons (tùy chọn). Bạn có thể xóa cả khối này nếu không thích -->
+        <div class="social">
+          <a class="iconbtn" href="https://zalo.me/0564313288" target="_blank" rel="noopener noreferrer" aria-label="Zalo">
+            <!-- chat bubble icon -->
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M4 5.5A3.5 3.5 0 0 1 7.5 2h9A3.5 3.5 0 0 1 20 5.5v7A3.5 3.5 0 0 1 16.5 16H10l-4.2 3.1c-.7.5-1.8 0-1.8-.9V5.5Z" stroke="currentColor" stroke-width="1.6"/>
+            </svg>
+          </a>
+          <a class="iconbtn" href="https://t.me/YOUR_USERNAME" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+            <!-- paper plane icon -->
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M21 3 3.8 10.3c-1 .4-.9 1.8.1 2.1l4.8 1.6 1.7 5c.3 1 1.6 1.1 2.1.2l2.7-4.7 4.8-9.7c.5-1-.5-2.1-1.6-1.7Z" stroke="currentColor" stroke-width="1.6"/>
+              <path d="M8.7 14.1 20.2 4.2" stroke="currentColor" stroke-width="1.6"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="links">
+        <!-- 1) Dùng Javis Quantum -->
+        <a class="btn" href="https://namtrader15.github.io/JAVIS/" target="_blank" rel="noopener noreferrer">
+          <span class="left" aria-hidden="true">
+            <!-- lightning icon -->
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M13 2 4 14h7l-1 8 10-14h-7l0-6Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <span class="label">Dùng Javis Quantum</span>
+          <span class="right" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </a>
+
+        <!-- 2) Dùng Javis BTC AI (chừa href) -->
+        <a class="btn" href="https://namtrader15.github.io/JAVIS/passview.html" onclick="return true;">
+          <span class="left" aria-hidden="true">
+            <!-- bitcoin-ish icon -->
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M10 4v16M14 4v16" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+              <path d="M9 7h6a3 3 0 0 1 0 6H9h7a3 3 0 0 1 0 6H9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <span class="label">Dùng Javis BTC AI </span>
+          <span class="right" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </a>
+
+        <!-- 3) Zalo -->
+        <a class="btn" href="https://zalo.me/0564313288" target="_blank" rel="noopener noreferrer">
+          <span class="left" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M4 6.5A3.5 3.5 0 0 1 7.5 3h9A3.5 3.5 0 0 1 20 6.5v6A3.5 3.5 0 0 1 16.5 16H10l-4.2 3.1c-.7.5-1.8 0-1.8-.9V6.5Z" stroke="currentColor" stroke-width="1.6"/>
+            </svg>
+          </span>
+          <span class="label">Zalo</span>
+          <span class="right" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </a>
+
+        <!-- 4) Telegram -->
+        <a class="btn" href="https://t.me/namtrader15" target="_blank" rel="noopener noreferrer">
+          <span class="left" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M21 3 3.8 10.3c-1 .4-.9 1.8.1 2.1l4.8 1.6 1.7 5c.3 1 1.6 1.1 2.1.2l2.7-4.7 4.8-9.7c.5-1-.5-2.1-1.6-1.7Z" stroke="currentColor" stroke-width="1.6"/>
+              <path d="M8.7 14.1 20.2 4.2" stroke="currentColor" stroke-width="1.6"/>
+            </svg>
+          </span>
+          <span class="label">Telegram</span>
+          <span class="right" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </a>
+      </div>
+
+      <div class="foot">
+        © <span id="y"></span> Javis. Tiktok: @aiforexfutures.
+      </div>
+    </section>
+  </main>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
