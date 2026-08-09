@@ -11,7 +11,7 @@ const esc = (s='') => String(s)
     const tools = await res.json();
     const t = tools.find(x=>x.id===id && x.published);
     if(!t){
-      root.innerHTML='<div class="empty">Tool không tồn tại hoặc chưa publish.</div>';
+      root.innerHTML='<div class="empty">Công cụ không tồn tại hoặc chưa được công khai.</div>';
       return;
     }
 
@@ -25,27 +25,27 @@ const esc = (s='') => String(s)
           <div class="tags">${(t.tags||[]).map(x=>`<span>#${esc(x)}</span>`).join('')}</div>
         </div>
         <div class="download-box">
-          <small>CURRENT VERSION</small>
+          <small>PHIÊN BẢN HIỆN TẠI</small>
           <strong>v${esc(t.version||'—')}</strong>
-          <small>Updated ${esc(t.updated||'')}</small>
-          <a class="button" style="margin-top:10px" href="${esc(t.file)}" download>Download source</a>
+          <small>Cập nhật ${esc(t.updated||'')}</small>
+          <a class="button" style="margin-top:10px" href="${esc(t.file)}" download>Tải source</a>
         </div>
       </section>
 
       <section class="detail-grid">
         <div class="panel">
-          <div class="panel-title">Source preview</div>
-          <pre class="code"><code>${esc(t.code_preview||'# Source preview not provided')}</code></pre>
+          <div class="panel-title">Mã nguồn xem trước</div>
+          <pre class="code"><code>${esc(t.code_preview||'# Chưa có mã nguồn xem trước')}</code></pre>
         </div>
         <div class="panel">
-          <div class="panel-title">Changelog · v${esc(t.version||'—')}</div>
+          <div class="panel-title">Lịch sử cập nhật · v${esc(t.version||'—')}</div>
           <ul class="change-list">
-            ${(t.changelog||[]).map(x=>`<li>${esc(x)}</li>`).join('') || '<li>No changelog.</li>'}
+            ${(t.changelog||[]).map(x=>`<li>${esc(x)}</li>`).join('') || '<li>Chưa có thông tin cập nhật.</li>'}
           </ul>
         </div>
       </section>
     `;
   }catch(e){
-    root.innerHTML=`<div class="empty">Không tải được dữ liệu tool.<br><small>${esc(e.message)}</small></div>`;
+    root.innerHTML=`<div class="empty">Không tải được dữ liệu công cụ.<br><small>${esc(e.message)}</small></div>`;
   }
 })();

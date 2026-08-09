@@ -6,7 +6,7 @@ const esc = (s='') => String(s)
 
 async function loadTools(){
   const res = await fetch('./tools.json', {cache:'no-store'});
-  if(!res.ok) throw new Error('Cannot load tools.json');
+  if(!res.ok) throw new Error('Không tải được tools.json');
   allTools = (await res.json())
     .filter(t => t.published)
     .sort((a,b)=>(a.order ?? 999)-(b.order ?? 999));
@@ -32,11 +32,11 @@ function render(){
     return (!q || hay.includes(q)) && (!cat || t.category===cat);
   });
 
-  document.getElementById('toolCount').textContent = `${filtered.length} published tool${filtered.length===1?'':'s'}`;
+  document.getElementById('toolCount').textContent = `${filtered.length} công cụ`;
   const grid=document.getElementById('toolGrid');
 
   if(!filtered.length){
-    grid.innerHTML='<div class="empty">Không tìm thấy tool phù hợp.</div>';
+    grid.innerHTML='<div class="empty">Không tìm thấy công cụ phù hợp.</div>';
     return;
   }
 
@@ -44,7 +44,7 @@ function render(){
     <article class="card">
       <div class="badges">
         <span class="badge free">FREE</span>
-        ${t.featured?'<span class="badge featured">FEATURED</span>':''}
+        ${t.featured?'<span class="badge featured">NỔI BẬT</span>':''}
         <span class="badge">${esc(t.category||'Tool')}</span>
       </div>
       <h3>${esc(t.name)}</h3>
@@ -55,8 +55,8 @@ function render(){
         <span>${esc(t.updated||'')}</span>
       </div>
       <div class="card-actions">
-        <a class="button ghost" href="./tool.html?id=${encodeURIComponent(t.id)}">View code</a>
-        <a class="button" href="${esc(t.file)}" download>Download</a>
+        <a class="button ghost" href="./tool.html?id=${encodeURIComponent(t.id)}">Xem chi tiết</a>
+        <a class="button" href="${esc(t.file)}" download>Tải xuống</a>
       </div>
     </article>
   `).join('');
@@ -72,6 +72,6 @@ document.getElementById('clearBtn').addEventListener('click',()=>{
 
 loadTools().catch(err=>{
   document.getElementById('toolGrid').innerHTML=
-    `<div class="empty">Không đọc được tools.json.<br><small>${esc(err.message)}</small></div>`;
-  document.getElementById('toolCount').textContent='Load failed';
+    `<div class="empty">Không tải được dữ liệu thư viện.<br><small>${esc(err.message)}</small></div>`;
+  document.getElementById('toolCount').textContent='Không thể tải dữ liệu';
 });

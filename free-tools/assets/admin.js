@@ -20,12 +20,12 @@ function toast(msg){
 
 async function loadFromServer(){
   const res=await fetch('./tools.json',{cache:'no-store'});
-  if(!res.ok) throw new Error('Cannot load tools.json');
+  if(!res.ok) throw new Error('Không tải được tools.json');
   tools=await res.json();
   selectedIndex = tools.length ? 0 : -1;
   renderAll();
   if(selectedIndex>=0) fillEditor(selectedIndex); else clearEditor();
-  toast('Loaded tools.json');
+  toast('Đã tải tools.json');
 }
 
 function renderAll(){
@@ -38,13 +38,13 @@ function renderAll(){
     list.innerHTML=tools.map((t,i)=>`
       <div class="tool-row">
         <div>
-          <div class="status ${t.published?'on':'off'}">${t.published?'PUBLISHED':'DRAFT'}</div>
+          <div class="status ${t.published?'on':'off'}">${t.published?'CÔNG KHAI':'BẢN NHÁP'}</div>
           <h3>${esc(t.name||'(Unnamed tool)')}</h3>
           <div class="sub">${esc(t.id||'no-id')} · v${esc(t.version||'—')} · order ${esc(t.order ?? '')}</div>
         </div>
         <div class="row-actions">
-          <button class="button ghost small" onclick="editTool(${i})">Edit</button>
-          <button class="button ${t.published?'danger':'secondary'} small" onclick="togglePublish(${i})">${t.published?'Unpublish':'Publish'}</button>
+          <button class="button ghost small" onclick="editTool(${i})">Sửa</button>
+          <button class="button ${t.published?'danger':'secondary'} small" onclick="togglePublish(${i})">${t.published?'Ẩn':'Công khai'}</button>
         </div>
       </div>
     `).join('');
@@ -55,8 +55,8 @@ function renderAll(){
 
 function clearEditor(){
   selectedIndex=-1;
-  $('editorTitle').textContent='New tool';
-  $('editorHint').textContent='Create a new library item.';
+  $('editorTitle').textContent='Công cụ mới';
+  $('editorHint').textContent='Tạo một công cụ mới trong thư viện.';
   ['f_id','f_name','f_short','f_desc','f_version','f_category','f_tags','f_file','f_code','f_changelog'].forEach(id=>$(id).value='');
   $('f_order').value=(tools.length+1);
   $('f_updated').value=new Date().toISOString().slice(0,10);
@@ -67,8 +67,8 @@ function clearEditor(){
 function fillEditor(i){
   selectedIndex=i;
   const t=tools[i];
-  $('editorTitle').textContent=t.name || 'Edit tool';
-  $('editorHint').textContent=`Editing ${t.id||'unnamed'}`;
+  $('editorTitle').textContent=t.name || 'Chỉnh sửa công cụ';
+  $('editorHint').textContent=`Đang chỉnh sửa: ${t.id||'chưa có ID'}`;
   $('f_id').value=t.id||'';
   $('f_name').value=t.name||'';
   $('f_short').value=t.short_description||'';
@@ -119,12 +119,12 @@ $('newBtn').onclick=()=>clearEditor();
 $('saveBtn').onclick=()=>{
   const t=readForm();
   if(!t.name || !t.id){
-    toast('Name / ID cannot be empty');
+    toast('Tên công cụ và ID không được để trống');
     return;
   }
   const duplicateIndex=tools.findIndex((x,i)=>x.id===t.id && i!==selectedIndex);
   if(duplicateIndex>=0){
-    toast('ID already exists');
+    toast('ID này đã tồn tại');
     return;
   }
   if(selectedIndex>=0){
@@ -135,7 +135,7 @@ $('saveBtn').onclick=()=>{
   }
   renderAll();
   fillEditor(tools.findIndex(x=>x.id===t.id));
-  toast('Saved in browser');
+  toast('Đã lưu thay đổi trong trình duyệt');
 };
 
 $('duplicateBtn').onclick=()=>{
@@ -146,18 +146,18 @@ $('duplicateBtn').onclick=()=>{
   tools.push(t);
   renderAll();
   fillEditor(tools.findIndex(x=>x.id===t.id));
-  toast('Duplicated');
+  toast('Đã nhân bản công cụ');
 };
 
 $('deleteBtn').onclick=()=>{
   if(selectedIndex<0) return;
-  const name=tools[selectedIndex]?.name||'this tool';
-  if(!confirm(`Delete ${name}?`)) return;
+  const name=tools[selectedIndex]?.name||'công cụ này';
+  if(!confirm(`Xóa ${name}?`)) return;
   tools.splice(selectedIndex,1);
   selectedIndex=tools.length?0:-1;
   renderAll();
   if(selectedIndex>=0) fillEditor(selectedIndex); else clearEditor();
-  toast('Deleted in browser');
+  toast('Đã xóa trong trình duyệt');
 };
 
 $('exportBtn').onclick=()=>{
@@ -166,7 +166,7 @@ $('exportBtn').onclick=()=>{
   const a=document.createElement('a');
   a.href=url;a.download='tools.json';a.click();
   URL.revokeObjectURL(url);
-  toast('Exported tools.json');
+  toast('Đã xuất tools.json');
 };
 
 $('importBtn').onclick=()=>$('importFile').click();
@@ -176,14 +176,14 @@ $('importFile').onchange=async e=>{
   if(!file) return;
   try{
     const parsed=JSON.parse(await file.text());
-    if(!Array.isArray(parsed)) throw new Error('Root JSON must be an array');
+    if(!Array.isArray(parsed)) throw new Error('Dữ liệu JSON phải là một mảng');
     tools=parsed;
     selectedIndex=tools.length?0:-1;
     renderAll();
     if(selectedIndex>=0) fillEditor(selectedIndex); else clearEditor();
-    toast('Imported JSON');
+    toast('Đã nhập dữ liệu JSON');
   }catch(err){
-    alert('Invalid JSON: '+err.message);
+    alert('JSON không hợp lệ: '+err.message);
   }
 };
 
@@ -193,5 +193,5 @@ loadFromServer().catch(()=>{
   tools=[];
   renderAll();
   clearEditor();
-  toast('Use Import JSON to start');
+  toast('Hãy nhập JSON để bắt đầu');
 });
