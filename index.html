@@ -37,12 +37,24 @@
     h1{margin:20px auto 14px;max-width:790px;font-size:clamp(38px,7vw,72px);line-height:1.02;letter-spacing:-2.5px}
     .gradient{background:linear-gradient(90deg,#fff 6%,#b7b0ff 48%,#70d8ff 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
     .lead{width:min(100%,680px);margin:0 auto;color:var(--muted);font-size:clamp(16px,2.4vw,19px);line-height:1.7}
-    .actions{display:flex;justify-content:center;flex-wrap:wrap;gap:12px;margin:27px 0 14px}
+    .actions{display:flex;justify-content:center;flex-wrap:wrap;gap:12px;margin:27px 0 10px}
     .btn{min-height:52px;padding:0 20px;border-radius:14px;display:inline-flex;align-items:center;justify-content:center;gap:9px;font-weight:800;border:1px solid transparent;transition:.2s ease;cursor:pointer}
     .btn:hover{transform:translateY(-2px)}
     .btn-primary{background:linear-gradient(135deg,var(--purple),#5145df);box-shadow:0 14px 34px rgba(119,105,255,.25)}
-    .btn-zalo{background:linear-gradient(135deg,#1697ff,#0068d9);box-shadow:0 14px 34px rgba(11,140,255,.21)}
-    .account-notice{width:min(100%,650px);margin:14px auto 0;padding:13px 16px;color:#dfe2ff;font-size:14px;line-height:1.55;border:1px solid rgba(119,105,255,.3);border-radius:14px;background:rgba(119,105,255,.1)}
+    .btn-live{position:relative;overflow:hidden;background:linear-gradient(180deg,rgba(15,25,31,.96),rgba(8,14,20,.98));border-color:rgba(85,224,157,.42);box-shadow:0 14px 34px rgba(85,224,157,.10),inset 0 0 0 1px rgba(255,255,255,.025)}
+    .btn-live:hover{border-color:rgba(85,224,157,.72);box-shadow:0 16px 38px rgba(85,224,157,.16),0 0 0 1px rgba(85,224,157,.07)}
+    .live-dot{width:8px;height:8px;border-radius:50%;background:#55e09d;box-shadow:0 0 0 0 rgba(85,224,157,.42);animation:livePulse 2.2s ease-out infinite}
+    .live-badge{font-size:10px;line-height:1;padding:5px 7px;border-radius:999px;color:#bff7d8;border:1px solid rgba(85,224,157,.28);background:rgba(85,224,157,.10);letter-spacing:.6px}
+    @keyframes livePulse{0%{box-shadow:0 0 0 0 rgba(85,224,157,.38)}70%{box-shadow:0 0 0 7px rgba(85,224,157,0)}100%{box-shadow:0 0 0 0 rgba(85,224,157,0)}}
+    .secondary-actions{display:flex;justify-content:center;margin:0 0 6px}
+    .btn-code{min-height:42px;padding:0 15px;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;gap:8px;color:#dcecff;font-size:13px;font-weight:800;border:1px solid rgba(47,184,255,.25);background:rgba(47,184,255,.055);box-shadow:inset 0 0 0 1px rgba(255,255,255,.015);transition:.2s ease}
+    .btn-code:hover{transform:translateY(-1px);color:#fff;border-color:rgba(47,184,255,.48);background:rgba(47,184,255,.10)}
+    .code-icon{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#77d6ff;font-size:14px}
+    .code-badge{font-size:9px;line-height:1;padding:5px 6px;border-radius:999px;color:#cbffe1;border:1px solid rgba(85,224,157,.25);background:rgba(85,224,157,.09);letter-spacing:.55px}
+    .hero-contact{display:flex;justify-content:center;margin:0 0 12px}
+    .hero-contact .zalo-link{display:inline-flex;align-items:center;gap:6px;padding:7px 10px;color:#91cfff;font-size:13px;font-weight:700;border-radius:10px;transition:.2s ease}
+    .hero-contact .zalo-link:hover{color:#cceaff;background:rgba(47,184,255,.07)}
+    .account-notice{width:min(100%,650px);margin:12px auto 0;padding:13px 16px;color:#dfe2ff;font-size:14px;line-height:1.55;border:1px solid rgba(119,105,255,.3);border-radius:14px;background:rgba(119,105,255,.1)}
     .account-notice strong{color:#fff}
     .section-title{margin:42px 0 14px;font-size:20px;letter-spacing:-.4px}
     .chart-shell{height:570px;padding:8px;overflow:hidden;border:1px solid rgba(255,255,255,.11);border-radius:24px;background:linear-gradient(145deg,rgba(255,255,255,.07),rgba(255,255,255,.025));box-shadow:var(--shadow)}
@@ -61,7 +73,7 @@
     .card h2{font-size:16px;margin:0 0 7px}.card p{margin:0;color:var(--muted);font-size:14px;line-height:1.55}
     .risk{margin-top:18px;padding:16px 18px;color:#9299a8;font-size:12px;line-height:1.6;border-top:1px solid var(--line)}
     footer{text-align:center;color:#697183;font-size:12px;padding-top:18px}
-    @media (max-width:760px){.wrap{width:min(100% - 22px,980px);padding-top:18px}.nav{margin-bottom:28px}h1{letter-spacing:-1.6px}.actions{display:grid}.btn{width:100%}.chart-shell{height:470px;padding:6px;border-radius:19px}.service-actions{grid-template-columns:1fr}.action-card{min-height:120px}.features{grid-template-columns:1fr}}
+    @media (max-width:760px){.wrap{width:min(100% - 22px,980px);padding-top:18px}.nav{margin-bottom:28px}h1{letter-spacing:-1.6px}.actions{display:grid}.btn{width:100%}.secondary-actions{margin-top:2px}.btn-code{width:100%}.hero-contact{margin-top:2px}.chart-shell{height:470px;padding:6px;border-radius:19px}.service-actions{grid-template-columns:1fr}.action-card{min-height:120px}.features{grid-template-columns:1fr}}
     @media (max-width:420px){.brand span:last-child{font-size:14px}.status{font-size:11px}.chart-shell{height:430px}.action-card{align-items:flex-start}}
   </style>
 </head>
@@ -87,7 +99,27 @@
 
       <div class="actions">
         <a class="btn btn-primary" href="https://titan-ai.ngrok.app/" target="_blank" rel="noopener noreferrer">Mở AI Trading <span aria-hidden="true">↗</span></a>
-        <a class="btn btn-zalo zalo-link" href="https://zalo.me/0564313288" data-phone="0564313288" rel="noopener">Liên hệ Zalo: 0564 313 288</a>
+        <!-- Thay /javis-xau-live bằng URL thật của JAVIS XAU Live Trade System -->
+        <a class="btn btn-live" href="/javis-xau-live" target="_blank" rel="noopener noreferrer">
+          <span class="live-dot" aria-hidden="true"></span>
+          <span>JAVIS XAU</span>
+          <span class="live-badge">LIVE</span>
+          <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+
+      <div class="secondary-actions">
+        <!-- Trang chia sẻ Python Trading Code nằm tại /free-tools/ -->
+        <a class="btn-code" href="/free-tools/">
+          <span class="code-icon" aria-hidden="true">&lt;/&gt;</span>
+          <span>Python Trading Code</span>
+          <span class="code-badge">FREE</span>
+          <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+
+      <div class="hero-contact">
+        <a class="zalo-link" href="https://zalo.me/0564313288" data-phone="0564313288" rel="noopener">Liên hệ Zalo: 0564 313 288 <span aria-hidden="true">↗</span></a>
       </div>
 
       <div class="account-notice">Tài khoản trải nghiệm AI Trading: <strong>ID Javis_Free</strong> · <strong>Pass: 123456</strong></div>
