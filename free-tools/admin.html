@@ -24,30 +24,36 @@
     <div>
       <div class="kicker">QUẢN LÝ FREE TOOLS</div>
       <h1>Quản lý Free Tools</h1>
-      <div class="muted">Thêm · Sửa · Xóa · Công khai · Xuất dữ liệu</div>
+      <div class="muted">Thêm · Sửa · Xóa · Upload · Publish trực tiếp lên GitHub</div>
     </div>
     <button id="newBtn" class="button">+ Thêm công cụ</button>
   </section>
 
-  <div class="notice">
-    Trang quản lý này hoạt động trực tiếp trong trình duyệt và <b>không có quyền ghi vào GitHub</b>.
-    Sau khi chỉnh sửa, bấm <b>Xuất tools.json</b> rồi thay file <code>free-tools/tools.json</code> trong repository.
+  <section id="loginPanel" class="panel" style="margin-bottom:18px">
+    <div class="panel-title">KẾT NỐI ADMIN API</div>
+    <div class="two">
+      <div>
+        <label>Mật khẩu quản trị</label>
+        <input id="adminKey" class="input" type="password" autocomplete="current-password" placeholder="Nhập ADMIN_KEY của Worker">
+      </div>
+      <div style="display:flex;align-items:end;gap:8px">
+        <button id="connectBtn" class="button" type="button" style="width:100%">Kết nối</button>
+      </div>
+    </div>
+    <div id="apiStatus" class="muted" style="margin-top:10px">Chưa kết nối.</div>
+  </section>
+
+  <div class="notice" id="workerNotice">
+    Khi đã kết nối, mọi thay đổi sẽ được Worker ghi trực tiếp vào repository GitHub. Token GitHub chỉ nằm trong Cloudflare Worker và không được gửi xuống trình duyệt.
   </div>
 
   <section class="admin-layout">
     <div>
-      <div id="toolList" class="tool-list"></div>
-
+      <div id="toolList" class="tool-list"><div class="empty">Kết nối để tải danh sách công cụ.</div></div>
       <div class="admin-footer-actions">
-        <div style="display:flex;gap:8px;flex-wrap:wrap">
-          <button id="importBtn" class="button ghost">Nhập JSON</button>
-          <input id="importFile" type="file" accept=".json" hidden>
-          <button id="resetBtn" class="button danger">Tải lại tools.json</button>
-        </div>
-        <button id="exportBtn" class="button secondary">Xuất tools.json</button>
+        <div class="muted" id="syncInfo">Chưa tải dữ liệu.</div>
+        <button id="reloadBtn" class="button ghost" type="button">Tải lại từ GitHub</button>
       </div>
-
-      <pre id="jsonPreview" class="code json-preview"></pre>
     </div>
 
     <form id="editor" class="editor-panel" onsubmit="return false">
@@ -92,8 +98,12 @@
       <label>Tags (ngăn cách bằng dấu phẩy)</label>
       <input class="input" id="f_tags" placeholder="Python, MT5, XAUUSD">
 
-      <label>Đường dẫn file tải xuống</label>
-      <input class="input" id="f_file" placeholder="./downloads/tool-name.zip">
+      <label>File bot / source mới</label>
+      <input class="input" id="f_upload" type="file" accept=".py,.zip,.txt,.json,.md,.mq5,.ex5">
+      <div class="muted" style="font-size:12px;margin-top:6px">Nếu không chọn file mới, hệ thống giữ file hiện tại. Tối đa 20 MB.</div>
+
+      <label>Đường dẫn file hiện tại</label>
+      <input class="input" id="f_file" readonly placeholder="Chưa có file">
 
       <label>Mã nguồn xem trước</label>
       <textarea class="input" id="f_code" style="min-height:150px;font-family:ui-monospace,Consolas,monospace"></textarea>
@@ -105,15 +115,16 @@
       <label class="checkbox"><input id="f_featured" type="checkbox"> Nổi bật</label>
 
       <div class="editor-actions">
-        <button id="saveBtn" class="button">Lưu thay đổi</button>
-        <button id="duplicateBtn" class="button ghost">Nhân bản</button>
-        <button id="deleteBtn" class="button danger">Xóa</button>
+        <button id="saveBtn" class="button" type="button">Lưu & Publish</button>
+        <button id="duplicateBtn" class="button ghost" type="button">Nhân bản</button>
+        <button id="deleteBtn" class="button danger" type="button">Xóa</button>
       </div>
     </form>
   </section>
 </main>
 
 <div id="toast" class="toast"></div>
+<script src="./assets/admin-config.js"></script>
 <script src="./assets/admin.js"></script>
 </body>
 </html>
