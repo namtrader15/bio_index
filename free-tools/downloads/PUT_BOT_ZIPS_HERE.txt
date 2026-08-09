@@ -1,0 +1,7 @@
+Upload file bot/tool ZIP vào thư mục này.
+
+Ví dụ:
+free-tools/downloads/xau-risk-calculator.zip
+
+Sau đó trong tools.json dùng:
+"file": "./downloads/xau-risk-calculator.zip"

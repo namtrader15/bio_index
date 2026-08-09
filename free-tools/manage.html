@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#070a12">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Free Tools Manager | Nam Nguyen Code Trading</title>
+  <link rel="stylesheet" href="./assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="container nav">
+    <a class="brand" href="../"><span class="logo">N</span><span>NAM NGUYEN <b>CODE TRADING</b></span></a>
+    <nav class="navlinks">
+      <a href="./">Free Tools</a>
+      <a href="../">Main site</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <section class="admin-head">
+    <div>
+      <div class="kicker">STATIC MANAGER</div>
+      <h1>Free Tools Manager</h1>
+      <div class="muted">Add · Edit · Delete · Publish · Export JSON</div>
+    </div>
+    <button id="newBtn" class="button">+ Add tool</button>
+  </section>
+
+  <div class="notice">
+    Trang quản lý này chạy hoàn toàn trong trình duyệt và <b>không có quyền ghi GitHub</b>.
+    Chỉnh xong, bấm <b>Export tools.json</b>, rồi thay file <code>free-tools/tools.json</code> trong repo. Không token, không secret, không backend.
+  </div>
+
+  <section class="admin-layout">
+    <div>
+      <div id="toolList" class="tool-list"></div>
+
+      <div class="admin-footer-actions">
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button id="importBtn" class="button ghost">Import JSON</button>
+          <input id="importFile" type="file" accept=".json" hidden>
+          <button id="resetBtn" class="button danger">Reload from tools.json</button>
+        </div>
+        <button id="exportBtn" class="button secondary">Export tools.json</button>
+      </div>
+
+      <pre id="jsonPreview" class="code json-preview"></pre>
+    </div>
+
+    <form id="editor" class="editor-panel" onsubmit="return false">
+      <div class="kicker">EDITOR</div>
+      <h2 id="editorTitle">New tool</h2>
+      <div class="muted" id="editorHint">Create a new library item.</div>
+
+      <label>ID / slug</label>
+      <input class="input" id="f_id" placeholder="xau-risk-calculator">
+
+      <label>Name</label>
+      <input class="input" id="f_name" placeholder="XAU Risk Calculator">
+
+      <label>Short description</label>
+      <textarea class="input" id="f_short"></textarea>
+
+      <label>Full description</label>
+      <textarea class="input" id="f_desc"></textarea>
+
+      <div class="two">
+        <div>
+          <label>Version</label>
+          <input class="input" id="f_version" placeholder="1.0.0">
+        </div>
+        <div>
+          <label>Updated</label>
+          <input class="input" id="f_updated" type="date">
+        </div>
+      </div>
+
+      <div class="two">
+        <div>
+          <label>Category</label>
+          <input class="input" id="f_category" placeholder="MT5 Utility">
+        </div>
+        <div>
+          <label>Order</label>
+          <input class="input" id="f_order" type="number" min="0" value="1">
+        </div>
+      </div>
+
+      <label>Tags (comma separated)</label>
+      <input class="input" id="f_tags" placeholder="Python, MT5, XAUUSD">
+
+      <label>Download file path</label>
+      <input class="input" id="f_file" placeholder="./downloads/tool-name.zip">
+
+      <label>Code preview</label>
+      <textarea class="input" id="f_code" style="min-height:150px;font-family:ui-monospace,Consolas,monospace"></textarea>
+
+      <label>Changelog (mỗi dòng một mục)</label>
+      <textarea class="input" id="f_changelog"></textarea>
+
+      <label class="checkbox"><input id="f_published" type="checkbox" checked> Published</label>
+      <label class="checkbox"><input id="f_featured" type="checkbox"> Featured</label>
+
+      <div class="editor-actions">
+        <button id="saveBtn" class="button">Save changes</button>
+        <button id="duplicateBtn" class="button ghost">Duplicate</button>
+        <button id="deleteBtn" class="button danger">Delete</button>
+      </div>
+    </form>
+  </section>
+</main>
+
+<div id="toast" class="toast"></div>
+<script src="./assets/admin.js"></script>
+</body>
+</html>

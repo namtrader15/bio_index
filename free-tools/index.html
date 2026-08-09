@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#070a12">
+  <title>Free Trading Tools | Nam Nguyen Code Trading</title>
+  <meta name="description" content="Free Python, MT5 and trading utilities shared by Nam Nguyen Code Trading.">
+  <link rel="stylesheet" href="./assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="container nav">
+    <a class="brand" href="../"><span class="logo">N</span><span>NAM NGUYEN <b>CODE TRADING</b></span></a>
+    <nav class="navlinks">
+      <a href="../">Home</a>
+      <a href="./">Free Tools</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <section class="hero">
+    <div>
+      <div class="kicker">FREE PYTHON & MT5 TOOLS</div>
+      <h1><span class="gradient">Trading code</span><br>free to use.</h1>
+      <p>Python utilities, MT5 helpers và những tool nhỏ dùng được ngay. Source preview, changelog và file tải về đều nằm chung một chỗ, thay vì bắt người ta đào GitHub như khảo cổ học.</p>
+      <div class="hero-actions">
+        <a class="button" href="#library">Browse free tools</a>
+        <a class="button ghost" href="../">Back to main site</a>
+      </div>
+    </div>
+    <div class="terminal">
+      <div class="terminal-head"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+      <pre><code><span class="cmd">$</span> python xau_risk.py
+
+balance        5,000
+risk           2.0%
+stop distance  8.50
+
+suggested lot
+<span class="hi">0.1176</span>
+
+status: <span class="hi">READY</span></code></pre>
+    </div>
+  </section>
+
+  <section id="library">
+    <div class="searchbar">
+      <input id="searchInput" class="input" placeholder="Search tool, tag, description...">
+      <select id="categoryFilter" class="input"><option value="">All categories</option></select>
+      <button id="clearBtn" class="button ghost" type="button">Clear</button>
+    </div>
+
+    <div class="section-head">
+      <div><div class="kicker">LIBRARY</div><h2>Free tools</h2></div>
+      <div id="toolCount" class="count">Loading...</div>
+    </div>
+
+    <div id="toolGrid" class="grid"></div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container">Nam Nguyen Code Trading · Free tools for traders & developers.</div>
+</footer>
+
+<script src="./assets/app.js"></script>
+</body>
+</html>
